@@ -1,36 +1,100 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//命令示例
+//命令队列
 
 //命令基类
 class Command
 {
-    public static Queue<Command> units; //命令队列
+    public static List<Command> commands = new List<Command>(); //命令列表
 
-    public Command(Command unit)
+    public Command curCommand;
+
+    public Command()
     {
-        units.Enqueue(unit);
+       
     }
 
-    public virtual void excute(GameObject obj){} //命令执行
-    public virtual void undo() { } //命令撤销 ctr Z
-    public virtual void redo() { } //命令重做 ctr Y
+    //命令执行
+    public virtual void excute() {
+        curCommand = this;
+        commands.Add(curCommand);
+        // 创建新命令时清楚当前命令后的缓存命令
+        for (int i = 0; i < commands.Count; i++)
+        {
+            if (commands[i] == curCommand)
+            {
+                for (int j = i + 1; j < commands.Count; j++)
+                {
+                    commands.RemoveAt(j);
+                }
+            }
+        }
+    } 
+
+    //命令撤销 ctr Z
+    public virtual void undo() {
+        for(int i = 0; i < commands.Count; i++)
+        {
+            if(commands[i] == curCommand)
+            {
+                if (i > 0)
+                    curCommand = commands[i - 1];
+                else
+                    return;
+            }
+        }
+    }
+
+    //命令重做 ctr Y
+    public virtual void redo()
+    {
+        for (int i = 0; i < commands.Count; i++)
+        {
+            if (commands[i] == curCommand)
+            { 
+                if (i< commands.Count - 1)
+                    curCommand = commands[i + 1];
+                else
+                    return;
+            }
+        }
+        curCommand.excute();
+    } 
 }
 
-class AddComand : Command
+class AddCommand : Command
 {
-    public AddComand(AddComand unit):base(unit) {}
+    private GameObject curObj;
 
-    public override void excute(GameObject obj)
+    public AddCommand(GameObject obj):base() {
+        curObj = obj;
+    }
+
+    public override void excute()
     {
-        base.excute(obj);
-        GameObject.Instantiate(obj);
+        base.excute();
+        GameObject.Instantiate(curObj);
     }
 
     public override void undo()
     {
         base.undo();
+        GameObject.Destroy(curObj);
+    }
+
+    public override void redo()
+    {
+        base.redo();
+    }
+}
+
+class MoveCommand : Command
+{
+    public MoveCommand(MoveCommand unit, int x, int y) : base()
+    {
+        
     }
 }
