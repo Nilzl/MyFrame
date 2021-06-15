@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class testCommand : MonoBehaviour
 {
-    public GameObject prefObj;
+    private GameObject prefObj;
+    private GameObject curObj;
 
     private void Start()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //命令队列
 
 //命令基类
@@ -110,6 +111,7 @@ class AddCommand : Command
     private GameObject prefObj;
     private GameObject curObj;
 
+
     public AddCommand(GameObject obj):base() {
         prefObj = obj;
     }
@@ -132,11 +134,4 @@ class AddCommand : Command
     }
 }
 
-//移动命令
-class MoveCommand : Command
-{
-    public MoveCommand(MoveCommand unit, int x, int y) : base()
-    {
-        
-    }
-}
+
