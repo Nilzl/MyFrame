@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//命令模式示例，使用命令模式创建游戏对象
 public class testCommand : MonoBehaviour
 {
     private GameObject prefObj;
