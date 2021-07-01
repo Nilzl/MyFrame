@@ -8,15 +8,54 @@ using UnityEngine;
 class Enemy
 {
     public GameObject enemyObj;
-    public Enemy(string name)
+    public float HP;
+    public float Speed;
+    public Enemy(string name,float hp,float speed)
     {
         enemyObj = Resources.Load<GameObject>(name);
+        HP = hp;
+        Speed = speed;
     }
 }
 
-class Mace : Enemy
+class Ghost : Enemy
 {
-    public Mace(string name) : base(name){
+    public Ghost(string name, float hp, float speed) : base(name,hp,speed){
         
+    }
+}
+
+class Wolf : Enemy
+{
+    public Wolf(string name, float hp, float speed) :base(name, hp, speed)
+    {
+
+    }
+}
+
+class Zombie : Enemy
+{
+    public Zombie(string name, float hp, float speed) :base(name, hp, speed)
+    {
+
+    }
+}
+
+class Spawn
+{
+    public float interval;
+    public int totalNum;
+    /// <summary>
+    /// 生产敌人函数
+    /// </summary>
+    /// <param name="enemy">传入需要生产的敌人实例</param>
+    /// <param name="i">生产敌人间隔</param>
+    /// <param name="num">生产敌人的总数量</param>
+    /// <returns></returns>
+    public T spawnEnemy<T>(T enemy,float i,int num)
+    {
+        interval = i;
+        totalNum = num;
+        return enemy;
     }
 }

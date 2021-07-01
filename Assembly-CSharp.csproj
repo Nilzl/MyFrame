@@ -57,7 +57,9 @@
     <Compile Include="Assets\Scripts\Command\testCommand.cs" />
     <Compile Include="Assets\Scripts\obverser\obverser.cs" />
     <Compile Include="Assets\Scripts\obverser\testObserver.cs" />
+    <Compile Include="Assets\Scripts\prototype\enemyBehavior.cs" />
     <Compile Include="Assets\Scripts\prototype\protoEnemy.cs" />
+    <Compile Include="Assets\Scripts\prototype\spawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
